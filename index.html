@@ -20,6 +20,11 @@
             --error: #FF0D72;
         }
 
+        /* Global Box Sizing: Taşmaları önler */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -29,19 +34,15 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 15px; /* Mobilde kenar boşluğu azaltıldı */
             -webkit-tap-highlight-color: transparent;
         }
 
         h1 {
             color: #1a1a1a;
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 22px;
+            margin-bottom: 15px;
             text-align: center;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         /* Kart Tasarımı */
@@ -49,42 +50,45 @@
             background: var(--card-bg);
             width: 100%;
             max-width: 400px;
-            border-radius: 20px;
+            border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            padding: 25px;
-            box-sizing: border-box;
+            padding: 20px; /* İç boşluk azaltıldı (25'ten 20'ye) */
             margin-bottom: 20px;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            width: 100%;
         }
 
         label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
         }
 
-        /* Özel Input Tasarımı */
+        /* Özel Input Tasarımı - DÜZELTİLDİ */
         .input-row {
             display: flex;
-            gap: 10px;
+            gap: 10px; /* Aradaki boşluk */
+            width: 100%;
         }
 
         input[type="number"] {
             width: 100%;
-            padding: 15px;
-            font-size: 18px;
+            max-width: 100%; /* Dışarı taşmayı engeller */
+            padding: 10px; /* Boşluk azaltıldı (15'ten 10'a) */
+            font-size: 16px; /* Küçültüldü */
             border: 2px solid #e1e1e1;
-            border-radius: 12px;
+            border-radius: 10px;
             background: #fafafa;
             transition: border 0.2s;
-            appearance: none; /* Okları kaldır */
+            appearance: none;
             text-align: center;
             font-weight: bold;
+            height: 45px; /* Yükseklik sabitlendi */
         }
 
         input[type="number"]:focus {
@@ -96,33 +100,33 @@
         /* Hesapla Butonu */
         .btn-calc {
             width: 100%;
-            padding: 18px;
+            padding: 15px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 18px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(56, 119, 255, 0.3);
             transition: transform 0.1s;
+            margin-top: 5px;
         }
 
-        .btn-calc:active {
-            transform: scale(0.98);
-        }
+        .btn-calc:active { transform: scale(0.98); }
 
         /* Sonuç Alanı */
         #result-area {
-            display: none; /* Başlangıçta gizli */
+            display: none;
             animation: slideDown 0.3s ease-out;
+            border: 2px solid var(--primary);
         }
 
         .result-title {
-            font-size: 14px;
+            font-size: 13px;
             color: #888;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -130,19 +134,19 @@
         .result-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
+            gap: 8px; /* Gap azaltıldı */
             text-align: center;
         }
 
         .res-box {
             background: #f8f9fa;
-            padding: 15px 5px;
-            border-radius: 10px;
+            padding: 10px 2px; /* Yan boşluklar kısıldı */
+            border-radius: 8px;
             border: 1px solid #eee;
         }
 
-        .res-label { font-size: 12px; color: #888; margin-bottom: 5px; }
-        .res-val { font-size: 20px; font-weight: bold; color: var(--primary); }
+        .res-label { font-size: 11px; color: #888; margin-bottom: 4px; }
+        .res-val { font-size: 18px; font-weight: bold; color: var(--primary); }
 
         /* Geçmiş Listesi */
         .history-container {
@@ -150,34 +154,29 @@
             max-width: 400px;
         }
         .history-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             margin-bottom: 10px;
             color: #444;
             display: flex;
             justify-content: space-between;
+            padding: 0 5px;
         }
         .clear-btn { color: var(--error); font-size: 12px; cursor: pointer; border:none; background:none;}
 
-        #history-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+        #history-list { list-style: none; padding: 0; margin: 0; }
 
         .history-item {
             background: white;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-size: 14px;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .hist-arrow { color: #aaa; font-size: 18px; margin: 0 10px; }
-        .hist-vals { display: flex; gap: 5px; font-weight: 500; }
 
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-10px); }
@@ -187,8 +186,8 @@
         /* Kopyalandı uyarısı */
         .toast {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: rgba(0,0,0,0.8); color: white; padding: 10px 20px;
-            border-radius: 20px; font-size: 14px; opacity: 0; pointer-events: none;
+            background: rgba(0,0,0,0.8); color: white; padding: 8px 16px;
+            border-radius: 20px; font-size: 13px; opacity: 0; pointer-events: none;
             transition: opacity 0.3s;
         }
         .toast.show { opacity: 1; }
@@ -206,11 +205,11 @@
         </div>
 
         <div class="input-row">
-            <div class="input-group" style="flex:1">
+            <div class="input-group" style="flex:1;">
                 <label>Silindirik (Cyl)</label>
                 <input type="number" id="cyl" placeholder="-0.00" step="0.25">
             </div>
-            <div class="input-group" style="flex:1">
+            <div class="input-group" style="flex:1;">
                 <label>Aks (Axis)</label>
                 <input type="number" id="axis" placeholder="0-180" min="0" max="180">
             </div>
@@ -219,7 +218,7 @@
         <button class="btn-calc" onclick="calculate()">HESAPLA</button>
     </div>
 
-    <div id="result-area" class="card" style="border: 2px solid var(--primary);">
+    <div id="result-area" class="card">
         <div class="result-title">Transpoze Sonucu</div>
         <div class="result-grid">
             <div class="res-box">
@@ -239,7 +238,7 @@
 
     <div class="history-container">
         <div class="history-title">
-            Son Hesaplamalar
+            Son İşlemler
             <button class="clear-btn" onclick="clearHistory()">Temizle</button>
         </div>
         <ul id="history-list">
@@ -249,7 +248,7 @@
     <div id="toast" class="toast">Sonuç Kopyalandı!</div>
 
     <script>
-        // Inputlara otomatik odaklanma ve Enter tuşu desteği
+        // Inputlara otomatik odaklanma
         const inputs = document.querySelectorAll('input');
         inputs.forEach((input, index) => {
             input.addEventListener('keydown', (e) => {
@@ -259,93 +258,17 @@
                     if (nextInput) {
                         nextInput.focus();
                     } else {
-                        calculate(); // Son inputtaysa hesapla
+                        calculate();
                     }
                 }
             });
         });
 
         function calculate() {
-            // Değerleri al
             let sph = parseFloat(document.getElementById('sph').value) || 0;
             let cyl = parseFloat(document.getElementById('cyl').value) || 0;
             let axis = parseFloat(document.getElementById('axis').value) || 0;
 
             // --- TRANSPOZE FORMÜLÜ ---
-            // 1. Yeni Sph = Eski Sph + Eski Cyl
             let newSph = sph + cyl;
-
-            // 2. Yeni Cyl = İşaret değişir
             let newCyl = -cyl;
-
-            // 3. Yeni Aks = +/- 90 derece
-            let newAxis = 0;
-            if (axis <= 90) {
-                newAxis = axis + 90;
-            } else {
-                newAxis = axis - 90;
-            }
-
-            // Aks 0 ise 180 gösterimi (tercihe bağlı, genelde 180 kullanılır)
-            if (newAxis === 0) newAxis = 180;
-
-            // --- EKRANA YAZDIR ---
-            const resSph = formatNum(newSph);
-            const resCyl = formatNum(newCyl);
-            const resAxis = newAxis;
-
-            document.getElementById('res-sph').innerText = resSph;
-            document.getElementById('res-cyl').innerText = resCyl;
-            document.getElementById('res-axis').innerText = resAxis;
-
-            // Sonuç alanını göster
-            document.getElementById('result-area').style.display = 'block';
-
-            // Geçmişe Ekle
-            addToHistory(sph, cyl, axis, resSph, resCyl, resAxis);
-        }
-
-        function formatNum(num) {
-            // Artı işareti ekle (0 hariç)
-            let formatted = num.toFixed(2);
-            if (num > 0) formatted = "+" + formatted;
-            return formatted;
-        }
-
-        function addToHistory(oldSph, oldCyl, oldAx, newSph, newCyl, newAx) {
-            const list = document.getElementById('history-list');
-            
-            // Eski değer formatı
-            const oldStr = `${formatNum(oldSph)} / ${formatNum(oldCyl)} x ${oldAx}`;
-            const newStr = `${newSph} / ${newCyl} x ${newAx}`;
-
-            const li = document.createElement('li');
-            li.className = 'history-item';
-            li.innerHTML = `
-                <div>
-                    <div style="color:#888; font-size:12px;">Giriş: ${oldStr}</div>
-                    <div style="color:#333; font-weight:bold;">Sonuç: ${newStr}</div>
-                </div>
-                <button onclick="copyText('${newStr}')" style="background:none; border:none; font-size:16px; cursor:pointer">📋</button>
-            `;
-
-            // En başa ekle
-            list.insertBefore(li, list.firstChild);
-            
-            // Hafızaya kaydet (Opsiyonel, şimdilik session)
-        }
-
-        function clearHistory() {
-            document.getElementById('history-list').innerHTML = "";
-        }
-
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2000);
-            });
-        }
-    </script>
-</body>
-</html>
