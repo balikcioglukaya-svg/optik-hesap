@@ -18,8 +18,7 @@
             --secondary: #eef2ff;
             --text-main: #222;
             --text-light: #888;
-            --danger-bg: #ffebee;
-            --danger-text: #ff4444;
+            --danger: #ff4444;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -54,85 +53,39 @@
             margin-bottom: 15px;
         }
 
-        .control-group {
-            margin-bottom: 15px;
-            width: 100%;
-        }
+        .control-group { margin-bottom: 15px; width: 100%; }
         
         .label-row {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 5px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 13px; font-weight: 600; color: var(--text-light);
+            margin-bottom: 5px; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        /* STEPPER TASARIMI */
+        /* STEPPER */
         .stepper-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f8f9fb;
-            border-radius: 12px;
-            padding: 4px;
-            border: 1px solid #e1e4e8;
-            height: 60px;
-            width: 100%;
+            display: flex; align-items: center; justify-content: space-between;
+            background: #f8f9fb; border-radius: 12px; padding: 4px;
+            border: 1px solid #e1e4e8; height: 60px; width: 100%;
         }
 
         .step-btn {
-            width: 60px;
-            height: 100%;
-            flex-shrink: 0;
-            border: none;
-            background: white;
-            border-radius: 10px;
-            font-size: 28px;
-            color: var(--primary);
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
+            width: 60px; height: 100%; flex-shrink: 0;
+            border: none; background: white; border-radius: 10px;
+            font-size: 28px; color: var(--primary); font-weight: bold;
+            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex; align-items: center; justify-content: center; user-select: none;
         }
-
         .step-btn:active { background: var(--secondary); transform: scale(0.95); }
         .step-btn.minus { color: #ff4d4d; }
         
         .value-display {
-            flex-grow: 1;
-            text-align: center;
-            font-size: 22px;
-            font-weight: 800;
-            color: #333;
-            background: transparent;
-            border: none;
-            pointer-events: none; 
-            width: 50px;
+            flex-grow: 1; text-align: center; font-size: 22px; font-weight: 800;
+            color: #333; background: transparent; border: none; pointer-events: none; width: 50px;
         }
 
         /* SONUÇ ALANI */
-        #result-area {
-            border: 2px solid var(--primary);
-            background: #fff;
-        }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            text-align: center;
-        }
-
-        .res-box {
-            background: var(--secondary);
-            padding: 10px 2px;
-            border-radius: 10px;
-        }
+        #result-area { border: 2px solid var(--primary); background: #fff; }
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center; }
+        .res-box { background: var(--secondary); padding: 10px 2px; border-radius: 10px; }
         .res-label { font-size: 11px; color: var(--primary); margin-bottom: 4px; font-weight: 600; }
         .res-val { font-size: 19px; font-weight: 800; color: #333; }
 
@@ -145,27 +98,28 @@
         .history-title { font-weight: bold; font-size: 15px; color: #444; }
         .save-btn {
             background: var(--primary); color: white; border: none;
-            padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold;
-            cursor: pointer;
+            padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer;
         }
         
+        /* GEÇMİŞ LİSTESİ ÖĞESİ - DÜZENLENDİ */
         .history-item {
-            background: white; padding: 12px; border-radius: 12px;
+            background: white; padding: 10px 12px; border-radius: 12px;
             margin-bottom: 8px; font-size: 13px;
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
             animation: fadeIn 0.3s ease-out;
         }
 
-        /* Butonlar (Kopyala ve Sil) */
+        /* BUTON GRUBU */
         .action-group {
             display: flex;
             gap: 8px;
+            align-items: center;
         }
         
         .btn-action {
-            width: 36px; height: 36px;
-            border-radius: 50%;
+            width: 34px; height: 34px;
+            border-radius: 8px; /* Yuvarlak kare */
             border: none;
             font-size: 16px;
             cursor: pointer;
@@ -175,13 +129,13 @@
         .btn-action:active { transform: scale(0.9); }
 
         .btn-copy { background: #f0f2f5; color: #333; }
-        .btn-del { background: var(--danger-bg); color: var(--danger-text); }
+        /* Kırmızı Silme Butonu */
+        .btn-del { background: var(--danger); color: white; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
     </style>
 </head>
 <body>
@@ -237,8 +191,8 @@
 
     <div class="history-container">
         <div class="history-header">
-            <span class="history-title">Geçmiş İşlemler</span>
-            <button class="save-btn" onclick="saveCurrent()">Listeye Kaydet</button>
+            <span class="history-title">Kayıtlı Reçeteler</span>
+            <button class="save-btn" onclick="saveCurrent()">Listeye Ekle</button>
         </div>
         <div id="history-list"></div>
     </div>
@@ -256,9 +210,7 @@
             let intervalId = null;
             let timeoutId = null;
 
-            const performAction = () => {
-                updateValue(type, step);
-            };
+            const performAction = () => updateValue(type, step);
 
             const start = (e) => {
                 e.preventDefault();
@@ -330,7 +282,7 @@
             document.getElementById('res-axis').innerText = newAxis;
         }
 
-        // --- LİSTEYE KAYDETME VE SİLME ---
+        // --- LİSTE YÖNETİMİ ---
         function saveCurrent() {
             const sphDisp = document.getElementById('sph').value;
             const cylDisp = document.getElementById('cyl').value;
@@ -346,17 +298,32 @@
             
             const copyStr = `${rSph} / ${rCyl} x ${rAx}`;
 
+            // HTML İçeriği: Metin solda, Butonlar (Kopyala/Sil) sağda
             item.innerHTML = `
-                <div style="flex:1">
+                <div style="flex:1; padding-right:10px;">
                     <div style="color:#999; font-size:11px; margin-bottom:2px;">Giriş: ${sphDisp} / ${cylDisp} x ${axDisp}</div>
                     <div style="color:#333; font-weight:bold; font-size:15px;">Sonuç: ${rSph} / ${rCyl} x ${rAx}</div>
                 </div>
                 <div class="action-group">
-                    <button class="btn-action btn-copy" onclick="navigator.clipboard.writeText('${copyStr}'); alert('Kopyalandı!')">📋</button>
-                    <button class="btn-action btn-del" onclick="this.closest('.history-item').remove()">🗑️</button>
+                    <button class="btn-action btn-copy" onclick="copyItem('${copyStr}')">📋</button>
+                    <button class="btn-action btn-del" onclick="deleteItem(this)">🗑️</button>
                 </div>
             `;
             list.insertBefore(item, list.firstChild);
+        }
+
+        function deleteItem(btnElement) {
+            // Butonun içinde bulunduğu .history-item divini bul ve sil
+            const item = btnElement.closest('.history-item');
+            if (item) {
+                item.remove();
+            }
+        }
+
+        function copyItem(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Kopyalandı: ' + text);
+            });
         }
 
         function formatNum(num) {
