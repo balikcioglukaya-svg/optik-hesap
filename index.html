@@ -18,6 +18,8 @@
             --secondary: #eef2ff;
             --text-main: #222;
             --text-light: #888;
+            --danger-bg: #ffebee;
+            --danger-text: #ff4444;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -48,7 +50,7 @@
             max-width: 400px;
             border-radius: 20px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-            padding: 15px; /* Kenar boşlukları optimize edildi */
+            padding: 15px;
             margin-bottom: 15px;
         }
 
@@ -67,23 +69,23 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- YENİ ESNEK STEPPER TASARIMI --- */
+        /* STEPPER TASARIMI */
         .stepper-wrapper {
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Öğeleri yay */
+            justify-content: space-between;
             background: #f8f9fb;
             border-radius: 12px;
             padding: 4px;
             border: 1px solid #e1e4e8;
             height: 60px;
-            width: 100%; /* Karta tam otur */
+            width: 100%;
         }
 
         .step-btn {
-            width: 60px; /* Sabit genişlik */
+            width: 60px;
             height: 100%;
-            flex-shrink: 0; /* ASLA KÜÇÜLME (Ekrandan taşmayı önler) */
+            flex-shrink: 0;
             border: none;
             background: white;
             border-radius: 10px;
@@ -95,14 +97,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            user-select: none; /* Yazı seçimi olmasın */
+            user-select: none;
         }
 
         .step-btn:active { background: var(--secondary); transform: scale(0.95); }
         .step-btn.minus { color: #ff4d4d; }
         
         .value-display {
-            flex-grow: 1; /* Kalan tüm boşluğu kapla */
+            flex-grow: 1;
             text-align: center;
             font-size: 22px;
             font-weight: 800;
@@ -110,7 +112,7 @@
             background: transparent;
             border: none;
             pointer-events: none; 
-            width: 50px; /* Minimum genişlik */
+            width: 50px;
         }
 
         /* SONUÇ ALANI */
@@ -134,7 +136,7 @@
         .res-label { font-size: 11px; color: var(--primary); margin-bottom: 4px; font-weight: 600; }
         .res-val { font-size: 19px; font-weight: 800; color: #333; }
 
-        /* GEÇMİŞ */
+        /* GEÇMİŞ ALANI */
         .history-container { width: 100%; max-width: 400px; }
         .history-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -152,6 +154,32 @@
             margin-bottom: 8px; font-size: 13px;
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Butonlar (Kopyala ve Sil) */
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-action {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.1s;
+        }
+        .btn-action:active { transform: scale(0.9); }
+
+        .btn-copy { background: #f0f2f5; color: #333; }
+        .btn-del { background: var(--danger-bg); color: var(--danger-text); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
     </style>
@@ -220,34 +248,27 @@
         let valCyl = 0.00;
         let valAxis = 180;
 
-        // İlk açılış hesaplaması
         calculateLive();
 
-        // --- BASILI TUTMA (RAPID FIRE) ÖZELLİĞİ ---
+        // --- BASILI TUTMA (RAPID FIRE) ---
         function attachRepeater(btnId, type, step) {
             const btn = document.getElementById(btnId);
             let intervalId = null;
             let timeoutId = null;
 
-            // İşlemi yapan fonksiyon
             const performAction = () => {
                 updateValue(type, step);
             };
 
-            // Dokunma başladığında
             const start = (e) => {
-                e.preventDefault(); // Çift tıklama zoom vs engelle
-                performAction(); // Hemen bir kere yap
-
-                // 500ms basılı tutulursa seri atmaya başla
+                e.preventDefault();
+                performAction(); 
                 timeoutId = setTimeout(() => {
-                    // Seri atış hızı (Axis için daha hızlı, diğerleri normal)
                     const speed = (type === 'axis') ? 30 : 100; 
                     intervalId = setInterval(performAction, speed);
                 }, 400);
             };
 
-            // Dokunma bittiğinde
             const end = (e) => {
                 e.preventDefault();
                 clearTimeout(timeoutId);
@@ -263,18 +284,15 @@
             btn.addEventListener('mouseleave', end);
         }
 
-        // Butonları bağla
         attachRepeater('sph-minus', 'sph', -0.25);
         attachRepeater('sph-plus', 'sph', 0.25);
-        
         attachRepeater('cyl-minus', 'cyl', -0.25);
         attachRepeater('cyl-plus', 'cyl', 0.25);
-
         attachRepeater('axis-minus', 'axis', -1);
         attachRepeater('axis-plus', 'axis', 1);
 
 
-        // --- HESAPLAMA MOTORU ---
+        // --- HESAPLAMA ---
         function updateValue(type, step) {
             if (type === 'sph') {
                 valSph += step;
@@ -312,6 +330,7 @@
             document.getElementById('res-axis').innerText = newAxis;
         }
 
+        // --- LİSTEYE KAYDETME VE SİLME ---
         function saveCurrent() {
             const sphDisp = document.getElementById('sph').value;
             const cylDisp = document.getElementById('cyl').value;
@@ -332,8 +351,10 @@
                     <div style="color:#999; font-size:11px; margin-bottom:2px;">Giriş: ${sphDisp} / ${cylDisp} x ${axDisp}</div>
                     <div style="color:#333; font-weight:bold; font-size:15px;">Sonuç: ${rSph} / ${rCyl} x ${rAx}</div>
                 </div>
-                <button onclick="navigator.clipboard.writeText('${copyStr}'); alert('Kopyalandı: ${copyStr}')" 
-                style="background:#f0f2f5; border:none; width:35px; height:35px; border-radius:50%; font-size:16px; cursor:pointer;">📋</button>
+                <div class="action-group">
+                    <button class="btn-action btn-copy" onclick="navigator.clipboard.writeText('${copyStr}'); alert('Kopyalandı!')">📋</button>
+                    <button class="btn-action btn-del" onclick="this.closest('.history-item').remove()">🗑️</button>
+                </div>
             `;
             list.insertBefore(item, list.firstChild);
         }
